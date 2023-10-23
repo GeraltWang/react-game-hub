@@ -5,7 +5,7 @@ import GameCardContainer from './GameCardContainer'
 import useGames from '../hooks/useGames'
 
 const GameGrid = () => {
-	const { games, isLoading, error } = useGames()
+	const { data: games, isLoading, error } = useGames()
 	const skeletons = Array(6).fill(0)
 
 	return (

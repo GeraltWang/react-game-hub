@@ -1,23 +1,31 @@
-import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
-import { BsChevronDown } from "react-icons/bs"
-import usePlatforms from "../hooks/usePlatforms"
+import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
+import { BsChevronDown } from 'react-icons/bs'
+import usePlatforms, { Platform } from '../hooks/usePlatforms'
 
-const PlatformSelector = () => {
-  const { data: platforms, error } = usePlatforms()
+interface Props {
+	onSelectPlatform: (platform: Platform) => void
+	selectedPlatform: Platform | null
+}
 
-  if (error) return null
+const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
+	const { data: platforms, error } = usePlatforms()
 
-  return (
-    <Menu>
-      <MenuButton as={Button} rightIcon={<BsChevronDown />}>Platforms</MenuButton>
-      <MenuList>
-        {platforms.map((platform) => (
-          <MenuItem key={platform.id}>{platform.name}</MenuItem>
-        ))}
-        
-      </MenuList>
-    </Menu>
-  )
+	if (error) return null
+
+	return (
+		<Menu>
+			<MenuButton as={Button} rightIcon={<BsChevronDown />}>
+				{selectedPlatform?.name || 'All Platforms'}
+			</MenuButton>
+			<MenuList>
+				{platforms.map(platform => (
+					<MenuItem onClick={() => onSelectPlatform(platform)} key={platform.id}>
+						{platform.name}
+					</MenuItem>
+				))}
+			</MenuList>
+		</Menu>
+	)
 }
 
 export default PlatformSelector

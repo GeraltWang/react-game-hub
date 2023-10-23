@@ -12,7 +12,7 @@ export interface Game {
 	name: string
 	background_image: string
 	parent_platforms: { platform: Platform }[]
-  metacritic: number
+	metacritic: number
 }
 
 export interface Platform {
@@ -23,25 +23,29 @@ export interface Platform {
 
 const useGames = () => {
 	const [games, setGames] = useState<Game[]>([])
+	const [isLoading, setIsLoading] = useState(false)
 	const [error, setError] = useState('')
 
 	useEffect(() => {
 		const controller = new AbortController()
 
+		setIsLoading(true)
 		apiClient
 			.get<GamesRes>('/games', { signal: controller.signal })
 			.then(response => {
 				setGames(response.data.results)
+				setIsLoading(false)
 			})
 			.catch(error => {
 				if (error instanceof CanceledError) return
 				setError(error.message)
+				setIsLoading(false)
 			})
 
 		return () => controller.abort()
 	}, [])
 
-	return { games, error }
+	return { games, isLoading, error }
 }
 
 export default useGames

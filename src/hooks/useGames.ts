@@ -10,7 +10,14 @@ interface GamesRes {
 export interface Game {
 	id: number
 	name: string
-  background_image: string
+	background_image: string
+	parent_platforms: { platform: Platform }[]
+}
+
+export interface Platform {
+	id: number
+	name: string
+	slug: string
 }
 
 const useGames = () => {
@@ -26,7 +33,7 @@ const useGames = () => {
 				setGames(response.data.results)
 			})
 			.catch(error => {
-        if (error instanceof CanceledError) return
+				if (error instanceof CanceledError) return
 				setError(error.message)
 			})
 

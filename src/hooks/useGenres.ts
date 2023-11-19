@@ -1,8 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import apiClient from '../services/api-client'
-import { FetchResponse } from './useData'
+import apiClient, { FetchResponse } from '../services/api-client'
 import initialGenres from '../data/genres'
-// import useData from './useData'
 
 export interface Genre {
 	id: number
@@ -11,8 +9,6 @@ export interface Genre {
 	games_count: number
 	image_background: string
 }
-
-// const useGenres = () => useData<Genre>('/genres')
 
 const useGenres = () =>
 	useQuery({

@@ -3,6 +3,7 @@ import { GameQuery } from '../App'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import APIClient, { FetchResponse } from '../services/api-client'
 import { Platform } from './usePlatforms'
+import ms from 'ms'
 
 export interface Game {
 	id: number
@@ -32,7 +33,7 @@ const useGames = (gameQuery: GameQuery) =>
 					},
 				})
 				.then(data => data),
-		staleTime: 1000 * 60 * 60 * 24, // 1 day
+		staleTime: ms('24h'),
 	})
 
 export default useGames

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import APIClient from '../services/api-client'
-import initialPlatforms from '../data/platforms'
 import ms from 'ms'
+import initialPlatforms from '../data/platforms'
+import APIClient from '../services/api-client'
 
 export interface Platform {
 	id: number
